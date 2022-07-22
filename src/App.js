@@ -1,13 +1,20 @@
-import TryFetch from "./components/TryFetch";
+import Home from "./components/Home";
+import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import BootstrapNan from "./components/components/BootstrapNav";
+import ThemeProvider from "./contexts/ThemeProvider";
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<TryFetch />} />
-            </Routes>
-        </BrowserRouter>
+        <ThemeProvider>
+            <BrowserRouter>
+                <BootstrapNan />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </BrowserRouter>
+        </ThemeProvider>
     );
 }
 

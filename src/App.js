@@ -2,11 +2,11 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BootstrapNan from "./components/components/BootstrapNav";
-import ThemeProvider from "./contexts/ThemeProvider";
+import SuperProvider from "./contexts/SuperProvider";
 
 function App() {
     return (
-        <ThemeProvider>
+        <SuperProvider>
             <BrowserRouter>
                 <BootstrapNan />
                 <Routes>
@@ -14,7 +14,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                 </Routes>
             </BrowserRouter>
-        </ThemeProvider>
+        </SuperProvider>
     );
 }
 

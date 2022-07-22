@@ -16,6 +16,12 @@ function BootstrapNav() {
                             <Link to="/" className="me-2 d-flex align-items-center nav-link">
                                 Home
                             </Link>
+                            <Link to="/list" className="me-2 d-flex align-items-center nav-link">
+                                List
+                            </Link>
+                            <Link to="/canvas_draw" className="me-2 d-flex align-items-center nav-link">
+                                canvas
+                            </Link>
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

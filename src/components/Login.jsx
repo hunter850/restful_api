@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import { Form, Button, Container } from "react-bootstrap";
@@ -7,8 +8,9 @@ import { LOGIN_API } from "../config/ajax-path";
 
 function Login() {
     const [formObj, setFormObj] = useState({ account: "", password: "" });
+    const navigate = useNavigate();
     const { theme, setTheme, themes } = useTheme();
-    const { auth } = useAuth();
+    const { auth, setAuth } = useAuth();
     const changeHandler = useCallback(
         (event) => {
             setFormObj({ ...formObj, [event.target.name]: event.target.value });
@@ -23,10 +25,15 @@ function Login() {
                 const { success, data } = response.data;
                 if (success) {
                     localStorage.setItem("auth", JSON.stringify(data));
+                    setAuth({
+                        ...data,
+                        authorized: true,
+                    });
+                    navigate("/", { replace: false });
                 }
             })();
         },
-        [formObj]
+        [formObj, setAuth, navigate]
     );
     return (
         <>
@@ -40,6 +47,7 @@ function Login() {
                             placeholder="Account"
                             value={formObj.account}
                             onChange={(event) => changeHandler(event)}
+                            autoComplete="off"
                         />
                         <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
                     </Form.Group>
@@ -52,6 +60,7 @@ function Login() {
                             placeholder="Password"
                             value={formObj.password}
                             onChange={(event) => changeHandler(event)}
+                            autoComplete="off"
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">

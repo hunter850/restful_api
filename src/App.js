@@ -6,15 +6,15 @@ import SuperProvider from "./contexts/SuperProvider";
 
 function App() {
     return (
-        <SuperProvider>
-            <BrowserRouter>
+        <BrowserRouter>
+            <SuperProvider>
                 <BootstrapNan />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                 </Routes>
-            </BrowserRouter>
-        </SuperProvider>
+            </SuperProvider>
+        </BrowserRouter>
     );
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext({
     authorized: false,
@@ -14,12 +15,13 @@ export function useAuth() {
 function AuthProvider(props) {
     const { children } = props;
     const localAuthStr = localStorage.getItem("auth");
-    let localAuth = {
+    const unAuthState = {
         authorized: false,
         sid: 0,
         account: "",
         token: "",
     };
+    let localAuth = { ...unAuthState };
     if (localAuthStr) {
         try {
             localAuth = JSON.parse(localAuthStr);
@@ -31,7 +33,13 @@ function AuthProvider(props) {
         }
     }
     const [auth, setAuth] = useState(localAuth);
-    return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>;
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.removeItem("auth");
+        setAuth({ ...unAuthState });
+        navigate("/", { replace: false });
+    };
+    return <AuthContext.Provider value={{ ...auth, setAuth, logout }}>{children}</AuthContext.Provider>;
 }
 
 export default AuthProvider;
